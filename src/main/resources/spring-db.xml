@@ -9,6 +9,7 @@
     <context:property-placeholder location="postgres.properties"/>
     <context:component-scan base-package="com.dublez007.hittingDatabase"/>
 
+    <!--Spring Jdbc config><-->
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${database.driverClassName}"/>
         <property name="url" value="${database.url}"/>
@@ -16,11 +17,29 @@
         <property name="password" value="${database.password}"/>
     </bean>
 
-    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
 
-    <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-        <constructor-arg ref="jdbcTemplate"/>
+    <!--Jdbc config><-->
+    <!--<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+    <!--</bean>-->
+
+    <!--<bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">-->
+        <!--<constructor-arg ref="jdbcTemplate"/>-->
+    <!--</bean>-->
+
+
+    <!--Hibernate config><-->
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="com.dublez007.hittingDatabase.model"/>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="dialect">org.hibernate.dialect.PostgreSQL95Dialect</prop>
+            </props>
+        </property>
+
     </bean>
+    <bean id="exceptionProcessor"
+          class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
+
 </beans>

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+
 public class SpringJdbcUserRepositoryImpl implements UserRepository {
 
     private JdbcTemplate jdbcTemplate;

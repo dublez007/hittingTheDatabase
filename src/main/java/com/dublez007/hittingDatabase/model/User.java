@@ -1,16 +1,39 @@
 package com.dublez007.hittingDatabase.model;
 
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 import static com.dublez007.hittingDatabase.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
 
+@Entity
+@Table(name = "users")
 public class User extends AbstractBaseEntity {
+
+    @Id
+    @Column(name="id")
+    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
+    protected Integer id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "password")
     private String password;
+
+    @Column(name = "calories_per_day")
     private int caloriesPerDay;
+
+    @Column(name = "enabled")
     private boolean enabled;
+
+    @Column(name = "registered")
     private LocalDateTime registered;
+
+    @Column(name = "role")
     private UserRole role;
 
     public User(){
