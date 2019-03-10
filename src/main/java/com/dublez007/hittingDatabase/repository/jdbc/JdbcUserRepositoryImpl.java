@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.List;
 
-@Repository
+
 public class JdbcUserRepositoryImpl implements UserRepository {
 
     private static final String SQL_INSERT_USER =

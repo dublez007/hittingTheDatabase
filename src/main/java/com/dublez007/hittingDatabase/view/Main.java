@@ -15,7 +15,7 @@ public class Main{
         User u = new User(
                 null,
                 "Nikita Ivanov",
-                "test234@gmail.com",
+                "test345@gmail.com",
                 "password",
                 2000,
                 true,
