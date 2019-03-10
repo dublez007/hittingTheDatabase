@@ -6,31 +6,25 @@ import java.time.LocalDateTime;
 import static com.dublez007.hittingDatabase.util.MealsUtil.DEFAULT_CALORIES_PER_DAY;
 
 @Entity
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")} )
 public class User extends AbstractBaseEntity {
 
-    @Id
-    @Column(name="id")
-    @SequenceGenerator(name = "global_seq", sequenceName = "global_seq", allocationSize = 1, initialValue = START_SEQ)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "global_seq")
-    protected Integer id;
-
-    @Column(name = "name")
+//    @Column(name = "name")
     private String name;
 
-    @Column(name = "email")
+//    @Column(name = "email")
     private String email;
 
-    @Column(name = "password")
+//    @Column(name = "password")
     private String password;
 
-    @Column(name = "calories_per_day")
+//    @Column(name = "calories_per_day")
     private int caloriesPerDay;
 
-    @Column(name = "enabled")
+//    @Column(name = "enabled")
     private boolean enabled;
 
-    @Column(name = "registered")
+//    @Column(name = "registered")
     private LocalDateTime registered;
 
     @Column(name = "role")

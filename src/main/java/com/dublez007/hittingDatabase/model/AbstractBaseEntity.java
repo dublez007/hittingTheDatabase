@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @MappedSuperclass
-@Access(AccessType.FIELD)
+//@Access(AccessType.FIELD)
 public class AbstractBaseEntity {
     public static final int START_SEQ = 10000;
 

@@ -37,7 +37,10 @@ public class HibernateUserRepositoryImpl implements UserRepository {
     public User save(User user) {
         User result = null;
             if(user.isNew())
-                return (User) currentSession().save(user);
+            {
+                user.setId((Integer) currentSession().save(user));
+                return user;
+            }
             else
             {
                 currentSession().saveOrUpdate(user);
