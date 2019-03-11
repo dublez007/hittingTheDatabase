@@ -1,10 +1,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd">
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <context:property-placeholder location="postgres.properties"/>
     <context:component-scan base-package="com.dublez007.hittingDatabase"/>
@@ -29,17 +32,47 @@
 
 
     <!--Hibernate config><-->
-    <bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+    <!--<bean id="sessionFactory" class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">-->
+        <!--<property name="dataSource" ref="dataSource"/>-->
+        <!--<property name="packagesToScan" value="com.dublez007.hittingDatabase.model"/>-->
+        <!--<property name="hibernateProperties">-->
+            <!--<props>-->
+                <!--<prop key="dialect">org.hibernate.dialect.PostgreSQL95Dialect</prop>-->
+            <!--</props>-->
+        <!--</property>-->
+
+    <!--</bean>-->
+    <!--<bean id="exceptionProcessor"-->
+          <!--class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>-->
+
+
+    <!--JPA Config - Application-Managed JPA><-->
+    <!--<bean id="emf" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">-->
+        <!--<property name="persistenceUnitName" value="hittingDatabasePu"/>-->
+    <!--</bean>-->
+    <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
-        <property name="packagesToScan" value="com.dublez007.hittingDatabase.model"/>
-        <property name="hibernateProperties">
-            <props>
-                <prop key="dialect">org.hibernate.dialect.PostgreSQL95Dialect</prop>
-            </props>
+        <property name="packagesToScan" value="com.dublez007.hittingDatabase.**.model"/>
+        <property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+        <property name="jpaPropertyMap">
+            <map>
+                <entry key="#{T(org.hibernate.cfg.AvailableSettings).FORMAT_SQL}"
+                       value="${hibernate.formatSql}"/>
+                <entry key="#{T(org.hibernate.cfg.AvailableSettings).USE_SQL_COMMENTS}"
+                       value="${hibernate.use_sql_comments}"/>
+            </map>
         </property>
-
     </bean>
-    <bean id="exceptionProcessor"
-          class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
 
+    <tx:annotation-driven/>
+
+    <bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+        <property name="showSql" value="${jpa.showSql}"/>
+        <property name="database" value="${database.name}"/>
+        <property name="databasePlatform" value="${database.dialect}"/>
+    </bean>
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="emf"/>
+    </bean>
 </beans>

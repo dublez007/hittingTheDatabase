@@ -9,25 +9,28 @@ import static com.dublez007.hittingDatabase.util.MealsUtil.DEFAULT_CALORIES_PER_
 @Table(name = "users", uniqueConstraints = {@UniqueConstraint(columnNames = "email", name = "users_unique_email_idx")} )
 public class User extends AbstractBaseEntity {
 
-//    @Column(name = "name")
+    @Column(name = "name")
     private String name;
 
-//    @Column(name = "email")
+    @Column(name = "email")
     private String email;
 
-//    @Column(name = "password")
+    @Column(name = "password")
     private String password;
 
-//    @Column(name = "calories_per_day")
+    @Column(name = "calories_per_day")
     private int caloriesPerDay;
 
-//    @Column(name = "enabled")
+    @Column(name = "enabled")
     private boolean enabled;
 
-//    @Column(name = "registered")
+    @Column(name = "registered")
     private LocalDateTime registered;
 
-    @Column(name = "role")
+    @Enumerated(EnumType.STRING)
+    @OneToOne(targetEntity = UserRole.class)
+    @JoinColumn(name="user_id")
+    @Column(name = "role" )
     private UserRole role;
 
     public User(){

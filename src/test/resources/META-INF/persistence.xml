@@ -1,0 +1,12 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+    <persistence-unit name="hittingDatabasePu">
+        <class>com.dublez007.hittingDatabase.model.User</class>
+        <class>com.dublez007.hittingDatabase.model.UserRole</class>
+        <properties>
+            <property name="toplink.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="toplink.jdbc.url" value="jdbc:postgresql://localhost:5432/"/>
+            <property name="toplink.jdbc.user" value="user"/>
+            <property name="toplink.jdbc.password" value="$password"/>
+        </properties>
+    </persistence-unit>
+</persistence>

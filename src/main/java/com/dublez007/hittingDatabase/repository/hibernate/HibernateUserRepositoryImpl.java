@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository;
 import javax.transaction.Transactional;
 import java.util.List;
 
-@Repository
+
 public class HibernateUserRepositoryImpl implements UserRepository {
 
     private SessionFactory sessionFactory;
